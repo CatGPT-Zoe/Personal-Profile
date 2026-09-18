@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Guojiao Zhao — ECE undergraduate at Shanghai Jiao Tong University. Research interests: agentic AI for optimization and decision-making, LLM security, and computer vision." />
+  <title>Guojiao Zhao</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <style>
+    /*
+      Linxi Zhao / Astrofy "lofi" visual system.
+      The reference site uses DaisyUI's lofi theme:
+      base-100 = white main canvas
+      base-200 = light-gray sidebar
+      base-300 = slightly darker gray for active/hover states
+      base-content = near-black/black text
+    */
+    :root {
+      --base-100: #ffffff;
+      --base-200: #f2f2f2;
+      --base-300: #e6e5e5;
+      --base-content: #000000;
+      --muted: #5f6368;
+      --hairline: #e6e5e5;
+      --link: #000000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--base-content);
+      background: var(--base-100);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+        sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      opacity: .68;
+    }
+
+    .layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 19rem minmax(0, 1fr);
+      background: var(--base-100);
+    }
+
+    /* Left sidebar: deliberately flat and full-height like Astrofy */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      align-self: start;
+      background: var(--base-200);
+      padding: 30px 18px 24px;
+      display: flex;
+      flex-direction: column;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow-y: auto;
+    }
+
+    .profile-photo {
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 24px;
+      border: 0;
+      background: var(--base-300);
+    }
+
+    .name {
+      margin: 0;
+      text-align: center;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .role {
+      margin: 8px 0 0;
+      text-align: center;
+      font-size: .96rem;
+      color: var(--base-content);
+    }
+
+    .location {
+      margin: 3px 0 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .side-links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 0;
+      margin-top: 4px;
+      border: 0;
+    }
+
+    .side-links a,
+    .side-links button {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: transparent;
+      color: var(--base-content);
+      font: inherit;
+      font-size: 1rem;
+      text-align: left;
+      text-decoration: none;
+      padding: 11px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background-color .12s ease, opacity .12s ease;
+    }
+
+    .side-links a:first-child {
+      background: var(--base-300);
+    }
+
+    .side-links a:hover,
+    .side-links button:hover {
+      background: var(--base-300);
+      opacity: 1;
+      text-decoration: none;
+    }
+
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 28px;
+    }
+
+    .social a {
+      font-size: .82rem;
+      color: var(--base-content);
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      text-decoration: none;
+    }
+
+    .social a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      width: min(900px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 40px 0 60px;
+      min-width: 0;
+    }
+
+    /* No floating white card: Linxi's lofi page reads directly on base-100 */
+    .hero {
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      margin: 0 0 42px;
+    }
+
+    .hero h1 {
+      margin: 0 0 18px;
+      font-size: 2rem;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      margin: 0 0 14px;
+      color: var(--base-content);
+    }
+
+    /* The reference lofi theme does not use colored highlight pills. */
+    .highlight {
+      background: transparent;
+      color: inherit;
+      border-radius: 0;
+      padding: 0;
+      font-weight: 600;
+    }
+
+    .research-line {
+      margin-top: 18px !important;
+      color: var(--base-content);
+    }
+
+    section {
+      margin: 0 0 42px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      border: 0;
+      padding: 0;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .paper {
+      display: grid;
+      grid-template-columns: 155px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+      padding: 8px 0 24px;
+      margin-bottom: 8px;
+      border: 0;
+      background: transparent;
+    }
+
+    .paper-thumb {
+      width: 155px;
+      height: 104px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--hairline);
+      background: var(--base-200);
+    }
+
+    .paper h3 {
+      margin: 0 0 5px;
+      font-size: 1rem;
+      line-height: 1.42;
+      font-weight: 700;
+    }
+
+    .authors {
+      color: var(--base-content);
+      font-size: .91rem;
+      line-height: 1.5;
+      margin: 0 0 6px;
+    }
+
+    .venue {
+      display: inline;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--base-content);
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+      margin-right: 8px;
+    }
+
+    .paper-links {
+      font-size: .88rem;
+      margin-top: 5px;
+    }
+
+    .paper-links a {
+      margin-right: 8px;
+      color: var(--base-content);
+      text-decoration: underline;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 145px minmax(0, 1fr);
+      gap: 20px;
+      padding: 8px 0 20px;
+      border: 0;
+    }
+
+    .timeline-date {
+      color: var(--base-content);
+      font-size: .9rem;
+    }
+
+    .timeline-content strong {
+      display: block;
+      font-weight: 700;
+    }
+
+    .timeline-content p {
+      margin: 3px 0 0;
+      color: var(--base-content);
+      font-size: .93rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      background: var(--base-200);
+      color: var(--base-content);
+      border: 0;
+      border-radius: 5px;
+      padding: 5px 9px;
+      font-size: .84rem;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: .82rem;
+      padding: 10px 0 4px;
+    }
+
+    /* Mobile drawer-like stack, while keeping the same lofi palette. */
+    @media (max-width: 900px) {
+      .layout {
+        display: block;
+        min-height: auto;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        min-height: 0;
+        width: 100%;
+        padding: 20px 20px 14px;
+        display: grid;
+        grid-template-columns: 84px 1fr;
+        column-gap: 18px;
+        align-items: center;
+      }
+
+      .profile-photo {
+        width: 84px;
+        height: 84px;
+        margin: 0;
+      }
+
+      .name,
+      .role,
+      .location {
+        text-align: left;
+      }
+
+      .location {
+        margin-bottom: 0;
+      }
+
+      .side-links {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 18px;
+      }
+
+      .side-links a,
+      .side-links button {
+        text-align: center;
+        padding: 9px 6px;
+      }
+
+      .social {
+        grid-column: 1 / -1;
+        margin-top: 12px;
+        padding-top: 4px;
+        justify-content: flex-start;
+      }
+
+      main {
+        width: min(900px, calc(100% - 36px));
+        padding-top: 30px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .side-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .paper {
+        grid-template-columns: 1fr;
+      }
+
+      .paper-thumb {
+        width: 100%;
+        height: auto;
+        max-height: 220px;
+      }
+
+      .timeline-row {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
+
+      .section-title span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <!-- EDIT 1: Replace this image file/path with your own headshot. -->
+      <img class="profile-photo" src="./assets/profile.jpg" alt="Guojiao Zhao profile photo" />
+
+      <div>
+        <!-- EDIT 2: Basic identity -->
+        <h2 class="name">Guojiao Zhao</h2>
+        <p class="role">ECE Undergraduate</p>
+        <p class="role">Shanghai Jiao Tong University</p>
+        <p class="location">Shanghai, China</p>
+      </div>
+
+      <nav class="side-links" aria-label="Primary">
+        <a href="#profile">Profile</a>
+        <a href="#research">Research</a>
+        <a href="#experience">Experience</a>
+
+        <!-- EDIT 3: Put your CV PDF in assets/ and change the filename here. -->
+        <a href="./assets/CV.pdf" target="_blank">CV ↗</a>
+      </nav>
+
+      <div class="social">
+        <!-- EDIT 4: Replace TODO links and email. -->
+        <a href="mailto:zgj_1.17@sjtu.edu.cn">Email</a>
+        <a href="https://github.com/CatGPT-Zoe" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero" id="profile">
+        <h1>Hi, I’m Guojiao Zhao.</h1>
+
+        <!-- EDIT 5: Main bio. Keep this section short; it is what faculty will read first. -->
+        <p>
+          I am an undergraduate student majoring in <strong>Electrical and Computer Engineering</strong>
+          at <strong>Shanghai Jiao Tong University</strong>, expecting to graduate in June 2027.
+          My research interests lie at the intersection of
+          <span class="highlight">agentic AI, optimization and decision-making</span>,
+          <span class="highlight">LLM security and red teaming</span>, and machine learning.
+        </p>
+
+        <p>
+          I have worked on black-box LLM jailbreaking, and on lightweight vision models for facial
+          expression recognition. I am particularly interested in building AI agents that can
+          reason, plan, and make reliable decisions under complex constraints.
+        </p>
+
+        <!-- EDIT 6: Keep / rewrite this depending on what you want to emphasize for PhD applications. -->
+        <p class="research-line">
+          Current interests: agentic methods for optimization &amp; decision-making · AI + OR ·
+          LLM/agent security · computer vision · recommender systems
+        </p>
+      </section>
+
+      <section id="research">
+        <div class="section-title">
+          <h2>Research</h2>
+          <span>Selected publications</span>
+        </div>
+
+        <article class="paper">
+          <img class="paper-thumb" src="./assets/ssc.svg" alt="SSC paper thumbnail" />
+          <div>
+            <h3>Semantic Steer Chain: Efficient and Precise Black-Box Jailbreaking Through Adaptive Approximation</h3>
+            <p class="authors">Jiesen Long, Yisheng Zheng, Jiayun Wu, <strong>Guojiao Zhao</strong></p>
+            <span class="venue">PAKDD 2026</span>
+            <div class="paper-links">
+              <!-- EDIT 7: Add your preferred paper/project/GitHub links. -->
+              <a href="https://doi.org/10.1007/978-981-92-1462-4_12" target="_blank" rel="noreferrer">Paper</a>
+              <a href="https://github.com/CatGPT-Zoe/Jailbreaking-llms" onclick="return false;">Project page</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper">
+          <img class="paper-thumb" src="./assets/llmamba.svg" alt="LLMamba-Net paper thumbnail" />
+          <div>
+            <h3>LLMamba-Net: A Lightweight Network Integrating Linear Mamba for Facial Expression Recognition</h3>
+            <p class="authors">Kaidi Hu, Xiaoyu Liu, <strong>Guojiao Zhao</strong>, Ruigang Yang</p>
+            <span class="venue">PRCV 2025</span>
+            <div class="paper-links">
+              <a href="https://doi.org/10.1007/978-981-95-5676-2_29" target="_blank" rel="noreferrer">Paper</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="experience">
+        <div class="section-title">
+          <h2>Research Experience</h2>
+          <span></span>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-row">
+            <div class="timeline-date">2025–2026</div>
+            <div class="timeline-content">
+              <strong>Black-box LLM Jailbreaking &amp; Red Teaming</strong>
+              <p>
+                Developed SSC, an adaptive semantic-approximation framework for efficient black-box
+                jailbreaking. Research advised in part by Prof. David Woodruff at Carnegie Mellon University.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row">
+            <div class="timeline-date">2025</div>
+            <div class="timeline-content">
+              <strong>Lightweight Computer Vision / Facial Expression Recognition</strong>
+              <p>
+                Contributed to LLMamba-Net, a lightweight facial-expression-recognition architecture
+                integrating linear Mamba modules.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-row">
+            <div class="timeline-date">Under going</div>
+            <div class="timeline-content">
+              <strong>Agentic AI for Optimization &amp; Decision-Making</strong>
+              <p>
+                Dive into agentic AI methods for optimization and decision-making, exploring how LLMs can be leveraged
+                to solve complex problems with constraints. Research advised in part by Prof. Ruihao Zhu at Cornell
+                University.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="education">
+        <div class="section-title">
+          <h2>Education</h2>
+          <span>Academic background</span>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-row">
+            <div class="timeline-date">Expected Jun. 2027</div>
+            <div class="timeline-content">
+              <strong>Shanghai Jiao Tong University</strong>
+              <p>Bachelor's student in Electrical and Computer Engineering. Ranking top 10%. </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-row">
+            <div class="timeline-date">2026 Spring</div>
+            <div class="timeline-content">
+              <strong>Cornell University</strong>
+              <p>Exchange student in Electrical and Computer Engineering.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="interests">
+        <div class="section-title">
+          <h2>Research Interests</h2>
+        </div>
+        <div class="tags">
+          <span class="tag">Agentic AI</span>
+          <span class="tag">Optimization &amp; Decision-Making</span>
+          <span class="tag">AI + Operations Research</span>
+          <span class="tag">LLM Security</span>
+          <span class="tag">LLM Jailbreaking</span>
+          <span class="tag">AI Agent Security</span>
+          <span class="tag">Computer Vision</span>
+          <span class="tag">Recommender Systems</span>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Guojiao Zhao · Built in the Astrofy / lofi visual style.
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+  </script>
+</body>
+
+</html>
