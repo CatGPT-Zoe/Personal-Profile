@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="612" viewBox="0 0 900 612">
+<defs><linearGradient id="a" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#eef1ff"/><stop offset="1" stop-color="#dfe6ff"/></linearGradient></defs>
+<rect width="900" height="612" rx="42" fill="url(#a)"/>
+<g fill="none" stroke="#5269d8" stroke-width="14" stroke-linecap="round">
+<path d="M120 410 C250 90 350 520 480 215 S690 170 790 92"/>
+<circle cx="120" cy="410" r="22" fill="#5269d8"/><circle cx="305" cy="270" r="22" fill="#5269d8"/>
+<circle cx="480" cy="215" r="22" fill="#5269d8"/><circle cx="650" cy="250" r="22" fill="#5269d8"/><circle cx="790" cy="92" r="22" fill="#5269d8"/>
+</g>
+<text x="70" y="548" font-family="Arial, sans-serif" font-size="56" font-weight="700" fill="#25336e">Semantic Steer Chain</text>
+</svg>
